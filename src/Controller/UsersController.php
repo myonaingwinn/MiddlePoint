@@ -190,7 +190,7 @@ class UsersController extends AppController
                         ->setTo($email)
                         ->setEmailFormat('html')
                         ->setSubject('Your Forgot Password Request')
-                        ->deliver('Hello ' . $user->name . ',<br/>Here is your password reset link. Click and reset your password<br/><br/><a href="http://localhost/MiddlePoint/users/resetpassword/' . $token . '">Reset Password</a>');
+                        ->deliver('Hello ' . $user->name . ',<br/>Here is your password reset link. Click and reset your password.<br/><br/><a href="http://localhost/MiddlePoint/users/resetpassword/' . $token . '">Reset Password</a>');
                 }
                 $this->Flash->success('Reset password link has been sent to your email ' . $email . '), please check your inbox.');
             }
