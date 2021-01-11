@@ -43,6 +43,10 @@
                     <td><?= $this->Number->format($user->verified) ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('Role') ?></th>
+                    <td><?= $this->Number->format($user->role) ?></td>
+                </tr>
+                <tr>
                     <th><?= __('Created') ?></th>
                     <td><?= h($user->created) ?></td>
                 </tr>

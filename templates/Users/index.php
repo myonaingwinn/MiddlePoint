@@ -17,6 +17,7 @@
                     <th><?= $this->Paginator->sort('password') ?></th>
                     <th><?= $this->Paginator->sort('verified') ?></th>
                     <th><?= $this->Paginator->sort('token') ?></th>
+                    <th><?= $this->Paginator->sort('role') ?></th>
                     <th><?= $this->Paginator->sort('created') ?></th>
                     <th><?= $this->Paginator->sort('modified') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -31,6 +32,7 @@
                     <td><?= h($user->password) ?></td>
                     <td><?= $this->Number->format($user->verified) ?></td>
                     <td><?= h($user->token) ?></td>
+                    <td><?= $this->Number->format($user->role) ?></td>
                     <td><?= h($user->created) ?></td>
                     <td><?= h($user->modified) ?></td>
                     <td class="actions">

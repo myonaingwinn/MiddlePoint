@@ -86,6 +86,11 @@ class UsersTable extends Table
             ->requirePresence('token', 'create')
             ->notEmptyString('token');
 
+        $validator
+            ->integer('role')
+            ->requirePresence('role', 'create')
+            ->notEmptyString('role');
+
         return $validator;
     }
 
