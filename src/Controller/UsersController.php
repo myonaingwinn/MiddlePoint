@@ -153,11 +153,14 @@ class UsersController extends AppController
         // regardless of POST or GET, redirect if user is logged in
         if ($result->isValid()) {
             // redirect to /articles after login success
-            return $this->redirect(['controller' => 'Users', 'action' => 'index']);
+            return $this->redirect([
+                'controller' => 'Users',
+                'action' => 'index'
+            ]);
         }
         // display error if user submitted and authentication failed
         if ($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->error(__('Invalid email or password'));
+            $this->Flash->error(__('Invalid username or password'));
         }
     }
 
@@ -192,7 +195,7 @@ class UsersController extends AppController
                         ->setSubject('Your Forgot Password Request')
                         ->deliver('Hello ' . $user->name . ',<br/>Here is your password reset link. Click and reset your password.<br/><br/><a href="http://localhost/MiddlePoint/users/resetpassword/' . $token . '">Reset Password</a>');
                 }
-                $this->Flash->success('Reset password link has been sent to your email ' . $email . '), please check your inbox.');
+                $this->Flash->success('Reset password link has been sent to your email ' . $email . ', please check your inbox.');
             }
             if ($userTable->find('all')->where(['email' => $email])->count() == 0) {
                 $this->Flash->error(__('Email is not registered in system'));
@@ -203,12 +206,9 @@ class UsersController extends AppController
     public function resetpassword($token)
     {
         if ($this->request->is('post')) {
-            $hasher = new DefaultPasswordHasher();
-            $newPassword = $hasher->hash($this->request->getData('password'));
-
             $userTable = $this->Users;
             $user = $userTable->find('all')->where(['token' => $token])->first();
-            $user->password = $newPassword;
+            $user->password = $this->request->getData('password');
             if ($userTable->save($user)) {
                 $this->Flash->success('Password successfully reset. Please login using your new password');
                 return $this->redirect(['action' => 'login']);
