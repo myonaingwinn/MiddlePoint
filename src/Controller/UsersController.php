@@ -1,7 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
+
+use Cake\Utility\Security;
+use Authentication\PasswordHasher\DefaultPasswordHasher;
+use Cake\ORM\TableRegistry;
+use Cake\Mailer\Mailer;
 
 /**
  * Users Controller
@@ -49,8 +55,31 @@ class UsersController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+
+            $hasher = new DefaultPasswordHasher();
+            $name = $this->request->getData('name');
+            $email = $this->request->getData('email');
+            $password = $this->request->getData('password');
+            $token = Security::hash(Security::randomBytes(32));
+
+            $user->name = $name;
+            $user->email = $email;
+            $user->password = $hasher->hash($password);
+            $user->token = $token;
+            $user->role = 0;
+            $user->verified = 0;
+
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
+
+                //send mail
+                $mailer = new Mailer('default');
+                // $mailer->setTransport('gmail');
+                $mailer->setProfile('mailtrap')
+                    ->setTo($email)
+                    ->setEmailFormat('html')
+                    ->setSubject('Verify Your Account')
+                    ->deliver('Hi ' . $user->name . ',<br/>Please confirm your email by clicking link below<br/><a href="http://localhost/Registration/users/resetpassword/' . $token . '">Verification Email</a><br/>Thank you for registration.');
 
                 return $this->redirect(['action' => 'index']);
             }

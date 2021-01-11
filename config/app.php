@@ -242,6 +242,23 @@ return [
             'tls' => false,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
+        'gmail' => [
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'username' => 'testtesttest4me@gmail.com', //eg: sender email
+            'password' => 'Gmail.com@2020', //email password
+            'className' => 'Smtp',
+            'tls' => true,
+            'client' => null,
+            'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+        ],
+        'mailtrap' => [
+            'host' => 'smtp.mailtrap.io',
+            'port' => 2525,
+            'username' => 'f3d29bb7decc56',
+            'password' => '6f8b19e8528e91',
+            'className' => 'Smtp'
+        ],
     ],
 
     /*
@@ -262,6 +279,14 @@ return [
              */
             //'charset' => 'utf-8',
             //'headerCharset' => 'utf-8',
+        ],
+        'gmail' => [
+            'transport' => 'gmail',
+            'from' => ['testtesttest4me@gmail.com' => 'User Management System'],
+        ],
+        'mailtrap' => [
+            'transport' => 'mailtrap',
+            'from' => ['testtesttest4me@gmail.com' => 'User Management System'],
         ],
     ],
 

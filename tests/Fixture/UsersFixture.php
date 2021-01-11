@@ -51,8 +51,8 @@ class UsersFixture extends TestFixture
                 'verified' => 1,
                 'token' => 'Lorem ipsum dolor sit amet',
                 'role' => 1,
-                'created' => '2021-01-11 03:49:00',
-                'modified' => '2021-01-11 03:49:00',
+                'created' => '2021-01-11 05:01:19',
+                'modified' => '2021-01-11 05:01:19',
             ],
         ];
         parent::init();

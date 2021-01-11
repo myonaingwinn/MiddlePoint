@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
@@ -22,12 +23,12 @@
             <fieldset>
                 <legend><?= __('Edit User') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('email');
-                    echo $this->Form->control('password');
-                    echo $this->Form->control('verified');
-                    echo $this->Form->control('token');
-                    echo $this->Form->control('role');
+                echo $this->Form->control('name');
+                echo $this->Form->control('email');
+                echo $this->Form->control('password');
+                // echo $this->Form->control('verified');
+                // echo $this->Form->control('token');
+                // echo $this->Form->control('role');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
