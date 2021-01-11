@@ -55,16 +55,10 @@ class UsersController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-
-            $hasher = new DefaultPasswordHasher();
-            $name = $this->request->getData('name');
-            $email = $this->request->getData('email');
             $password = $this->request->getData('password');
             $token = Security::hash(Security::randomBytes(32));
 
-            $user->name = $name;
-            $user->email = $email;
-            $user->password = $hasher->hash($password);
+            $user->email = $this->request->getData('email');
             $user->token = $token;
             $user->role = 0;
             $user->verified = 0;
@@ -76,12 +70,43 @@ class UsersController extends AppController
                 $mailer = new Mailer('default');
                 // $mailer->setTransport('gmail');
                 $mailer->setProfile('mailtrap')
-                    ->setTo($email)
+                    ->setTo($user->email)
                     ->setEmailFormat('html')
                     ->setSubject('Verify Your Account')
                     ->deliver('Hi ' . $user->name . ',<br/>Please confirm your email by clicking link below<br/><a href="http://localhost/MiddlePoint/users/verify/' . $token . '">Verification Email</a><br/>Thank you for registration.');
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'login']);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $this->set(compact('user'));
+    }
+
+    public function register()
+    {
+        $user = $this->Users->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $password = $this->request->getData('password');
+            $token = Security::hash(Security::randomBytes(32));
+
+            $user->email = $this->request->getData('email');
+            $user->token = $token;
+            $user->role = 0;
+            $user->verified = 0;
+
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Register successful, check your inbox and verify your account.'));
+
+                //send mail
+                $mailer = new Mailer();
+                $mailer->setProfile('mailtrap')
+                    ->setTo($user->email)
+                    ->setEmailFormat('html')
+                    ->setSubject('Verify Your Account')
+                    ->deliver('Hi ' . $user->name . ',<br/>Please confirm your email by clicking link below<br/><a href="http://localhost/MiddlePoint/users/verify/' . $token . '">Verification Email</a><br/>Thank you for registration.');
+
+                return $this->redirect(['action' => 'login']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -93,13 +118,14 @@ class UsersController extends AppController
         $user = $this->Users->find('all')->where(['token' => $token])->first();
 
         if (!empty($user) && $user->token == $token) {
+            $user->verified = 1;
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your account has been verified.'));
 
                 return $this->redirect(['action' => 'login']);
             }
             $this->Flash->error(__('Your account has not been verified. Check URL and try again.'));
-        }
+        } else $this->Flash->error(__('Your account has not registered.'));
     }
 
     /**
@@ -151,6 +177,7 @@ class UsersController extends AppController
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
         // regardless of POST or GET, redirect if user is logged in
+        // debug($result->_data);
         if ($result->isValid()) {
             // redirect to /articles after login success
             return $this->redirect([
