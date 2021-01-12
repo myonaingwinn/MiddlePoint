@@ -41,12 +41,19 @@ $cakeDescription = 'User Management System';
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>User Management </span>System</a>
+            <a href="<?= $this->Url->build('/index') ?>"><span>User Management </span>System</a>
         </div>
         <div class="top-nav-links">
-            <a rel="noopener" href="https://book.cakephp.org/4/">Login</a>
-            <a rel="noopener" href="<?= $this->Url->build('/register') ?>">Register</a>
-            <?php if ($user) : ?>
+            <?php if ($user_id == null) : ?>
+                <a rel="noopener" href="<?= $this->Url->build('/login') ?>">Login</a>
+            <?php endif; ?>
+            <?php if ($user_id == null) : ?>
+                <a rel="noopener" href="<?= $this->Url->build('/register') ?>">Register</a>
+            <?php endif; ?>
+            <?php if ($user_id != null) : ?>
+                <a rel="noopener" href="<?= $this->Url->build('/index') ?>">Home</a>
+            <?php endif; ?>
+            <?php if ($user_id != null) : ?>
                 <a rel="noopener" href="<?= $this->Url->build('/logout') ?>">Logout</a>
             <?php endif; ?>
         </div>
