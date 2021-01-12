@@ -44,8 +44,11 @@ $cakeDescription = 'User Management System';
             <a href="<?= $this->Url->build('/') ?>"><span>User Management </span>System</a>
         </div>
         <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Login</a>
-            <a target="_blank" rel="noopener" href="https://api.cakephp.org/">Register</a>
+            <a rel="noopener" href="https://book.cakephp.org/4/">Login</a>
+            <a rel="noopener" href="<?= $this->Url->build('/register') ?>">Register</a>
+            <?php if ($user) : ?>
+                <a rel="noopener" href="<?= $this->Url->build('/logout') ?>">Logout</a>
+            <?php endif; ?>
         </div>
     </nav>
     <main class="main">
