@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Utility\Security;
-use Authentication\PasswordHasher\DefaultPasswordHasher;
 // use Cake\ORM\TableRegistry;
 use Cake\Mailer\Mailer;
 
@@ -117,15 +116,19 @@ class UsersController extends AppController
     {
         $user = $this->Users->find('all')->where(['token' => $token])->first();
 
-        if (!empty($user) && $user->token == $token) {
-            $user->verified = 1;
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('Your account has been verified.'));
+        if ($user->verified != 1) {
+            if (!empty($user) && $user->token == $token) {
+                $user->verified = 1;
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('Your account has been verified.'));
 
-                return $this->redirect(['action' => 'login']);
-            }
-            $this->Flash->error(__('Your account has not been verified. Check URL and try again.'));
-        } else $this->Flash->error(__('Your account has not registered.'));
+                    return $this->redirect(['action' => 'login']);
+                }
+                $this->Flash->error(__('Your account has not been verified. Check URL and try again.'));
+            } else $this->Flash->error(__('Your account has not registered.'));
+        }
+        $this->Flash->error(__('Your account has already verified.'));
+        return $this->redirect(['action' => 'login']);
     }
 
     /**
@@ -142,6 +145,11 @@ class UsersController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            $token = Security::hash(Security::randomBytes(32));
+            if (!$user->token) {
+                $user->token = $token;
+                $user->verified = 0;
+            }
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 

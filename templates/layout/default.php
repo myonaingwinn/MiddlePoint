@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -14,10 +15,11 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'User Management System';
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,14 +37,25 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
+
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
+            <a href="<?= $this->Url->build('/index') ?>"><span>User Management </span>System</a>
         </div>
         <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Documentation</a>
-            <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
+            <?php if ($user_id == null) : ?>
+                <a rel="noopener" href="<?= $this->Url->build('/login') ?>">Login</a>
+            <?php endif; ?>
+            <?php if ($user_id == null) : ?>
+                <a rel="noopener" href="<?= $this->Url->build('/register') ?>">Register</a>
+            <?php endif; ?>
+            <?php if ($user_id != null) : ?>
+                <a rel="noopener" href="<?= $this->Url->build('/index') ?>">Home</a>
+            <?php endif; ?>
+            <?php if ($user_id != null) : ?>
+                <a rel="noopener" href="<?= $this->Url->build('/logout') ?>">Logout</a>
+            <?php endif; ?>
         </div>
     </nav>
     <main class="main">
@@ -54,4 +67,5 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <footer>
     </footer>
 </body>
+
 </html>

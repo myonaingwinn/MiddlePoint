@@ -47,6 +47,17 @@ class AppController extends Controller
         $this->loadComponent('Flash');
 
         $this->loadComponent('Authentication.Authentication');
+
+        //get authenticated user
+        $user = $this->Authentication->getIdentity();
+        if (is_object($user)) {
+            $this->set('user_id', $user->id);
+            $this->set('user', $this->Authentication->getIdentity());
+        } else {
+            $this->set('user_id', null);
+            $this->set('user', null);
+        }
+
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
@@ -59,6 +70,6 @@ class AppController extends Controller
         parent::beforeFilter($event);
         // Configure the login action to not require authentication, preventing
         // the infinite redirect loop issue
-        $this->Authentication->addUnauthenticatedActions(['login', 'forgot', 'resetpassword', 'register']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'forgot', 'resetpassword', 'register', 'verify']);
     }
 }
