@@ -6,7 +6,10 @@
  */
 ?>
 <div class="users index content">
-    <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?php if ($user_g->role == 1) : ?>
+        <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?php endif; ?>
+
     <h3><?= __('Users') ?></h3>
     <div class="table-responsive">
         <table>
@@ -38,8 +41,10 @@
                         <td><?= h($user->modified) ?></td>
                         <td class="actions">
                             <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                            <?php if ($user_g->role == 1) : ?>
+                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -54,7 +59,7 @@
             <?= $this->Paginator->next(__('next') . ' >') ?>
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p><br/>
+        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p><br />
         <?= $this->Html->link('Download CSV', ['action' => 'csv'], ['class' => 'button']) ?>&ensp;
         <?= $this->Html->link(__('Download PDF'), ['action' => 'pdf'], ['class' => 'button']) ?>
     </div>

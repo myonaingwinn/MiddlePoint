@@ -42,8 +42,9 @@
                     <td><?= $this->Number->format($user->id) ?></td>
                 </tr>
                 <tr>
+                    <?php $who = ($user_g->id == $user->id) ? "Your" : "This"; ?>
                     <th><?= __('Verified') ?></th>
-                    <td><?= ($user->verified == 0) ? "<div style ='color:#FF3232'>Your Account is not verified yet. Please check your email.</div>" : "<div style ='color:#198C19'>Your Account is verified.</div>" ?></td>
+                    <td><?= ($user->verified == 0) ? "<div style ='color:#FF3232'>" . $who . " Account is not verified yet. Please check your email.</div>" : "<div style ='color:#198C19'>" . $who . " Account is verified.</div>" ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Role') ?></th>
@@ -59,7 +60,9 @@
                 </tr>
             </table>
             <br />
-            <?= $this->Html->link(__('Download Your Data as PDF'), ['action' => 'pdf', $user->id], ['class' => 'float-right, button']) ?>
+            <?php if (($user_g->id == $user->id) || $user_g->role == 1) : ?>
+                <?= $this->Html->link(__('Download Your Data as PDF'), ['action' => 'pdf', $user->id], ['class' => 'float-right, button']) ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>
