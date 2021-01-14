@@ -54,9 +54,8 @@
             <?= $this->Paginator->next(__('next') . ' >') ?>
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-        <?= $this->Html->link('Download CSV', ['action' => 'csv'], ['class' => 'button']) ?>
-        <!-- <?= $this->Html->link(__('Download PDF'), ['action' => 'pdf', $user->id], ['class' => 'button']) ?> -->
+        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p><br/>
+        <?= $this->Html->link('Download CSV', ['action' => 'csv'], ['class' => 'button']) ?>&ensp;
         <?= $this->Html->link(__('Download PDF'), ['action' => 'pdf'], ['class' => 'button']) ?>
     </div>
 </div>

@@ -268,10 +268,10 @@ class UsersController extends AppController
         $this->viewBuilder()->enableAutoLayout(false);
         if ($id) {
             $users = $this->Users->findById($id);
-            $filename = 'Report_for_' . $id;
+            $filename = 'Report for UserID-' . $id;
         } else {
             $users = $this->Users->find();
-            $filename = 'Report_for_All_Users';
+            $filename = 'Report for All Users';
         }
         $this->viewBuilder()->setClassName('CakePdf.pdf');
         $this->viewBuilder()->setOption(
