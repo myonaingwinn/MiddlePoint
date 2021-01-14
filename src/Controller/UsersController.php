@@ -250,4 +250,16 @@ class UsersController extends AppController
             }
         }
     }
+
+    public function csv()
+    {
+        $this->response = $this->response->withDownload('Users List.csv');
+        $users = $this->Users->find();
+        $_serialize = 'users';
+        $_header = ['ID', 'Name', 'Email', 'Created Date', 'Modified Date'];
+        $_extract = ['id', 'name', 'email', 'created', 'modified'];
+
+        $this->viewBuilder()->setClassName('CsvView.Csv');
+        $this->set(compact('users', '_serialize', '_header', '_extract'));
+    }
 }
