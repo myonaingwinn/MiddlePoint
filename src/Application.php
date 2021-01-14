@@ -55,6 +55,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     {
         $this->addPlugin('CsvView');
 
+        $this->addPlugin('CakePdf');
+
         // Call parent to load bootstrap from files.
         parent::bootstrap();
 

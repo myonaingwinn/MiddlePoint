@@ -49,13 +49,13 @@ class AppController extends Controller
         $this->loadComponent('Authentication.Authentication');
 
         //get authenticated user
-        $user = $this->Authentication->getIdentity();
-        if (is_object($user)) {
-            $this->set('user_id', $user->id);
-            $this->set('user', $this->Authentication->getIdentity());
+        $user_g = $this->Authentication->getIdentity();
+        if (is_object($user_g)) {
+            $this->set('user_id', $user_g->id);
+            $this->set('user_g', $this->Authentication->getIdentity());
         } else {
             $this->set('user_id', null);
-            $this->set('user', null);
+            $this->set('user_g', null);
         }
 
         /*
