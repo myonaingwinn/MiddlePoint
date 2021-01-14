@@ -56,5 +56,7 @@
         </ul>
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
         <?= $this->Html->link('Download CSV', ['action' => 'csv'], ['class' => 'button']) ?>
+        <!-- <?= $this->Html->link(__('Download PDF'), ['action' => 'pdf', $user->id], ['class' => 'button']) ?> -->
+        <?= $this->Html->link(__('Download PDF'), ['action' => 'pdf'], ['class' => 'button']) ?>
     </div>
 </div>

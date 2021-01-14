@@ -262,4 +262,27 @@ class UsersController extends AppController
         $this->viewBuilder()->setClassName('CsvView.Csv');
         $this->set(compact('users', '_serialize', '_header', '_extract'));
     }
+
+    public function pdf($id = null)
+    {
+        $this->viewBuilder()->enableAutoLayout(false);
+        if ($id) {
+            $users = $this->Users->findById($id);
+            $filename = 'Report_for_' . $id;
+        } else {
+            $users = $this->Users->find();
+            $filename = 'Report_for_All_Users';
+        }
+        $this->viewBuilder()->setClassName('CakePdf.pdf');
+        $this->viewBuilder()->setOption(
+            'pdfConfig',
+            [
+                'orientation' => 'portrait',
+                'download' => true, // This can be omitted if "filename" is specified.
+                'filename' => $filename . '.pdf' //// This can be omitted if you want file name based on URL.
+            ]
+        );
+        // $this->set('user', $user);
+        $this->set(compact('users', 'users'));
+    }
 }
