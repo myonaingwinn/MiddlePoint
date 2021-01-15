@@ -5,10 +5,36 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
+<style>
+    .input.text {
+        width: 40%;
+        margin-left: 60%;
+    }
+
+    .button {
+        margin-left: 15px;
+    }
+
+    input[type='submit'] {
+        background-color: #404041;
+        border: #404041;
+    }
+
+    input[type='text'] {
+        border: 0.1rem solid #D33C43;
+    }
+</style>
+
 <div class="users index content">
+    <?= $this->Form->create(null, ['type' => 'get']) ?>
+    <!-- for search function -->
+    <?= $this->Form->control('key', ['label' => '', 'value' => $this->request->getQuery('key')]) ?>
+    <?= $this->Form->submit(__('Search'), ['class' => 'button float-right search']) ?>
+    <!-- for new user button -->
     <?php if ($user_g->role == 1) : ?>
         <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <?php endif; ?>
+    <?= $this->Form->end() ?>
 
     <h3><?= __('Users') ?></h3>
     <div class="table-responsive">
