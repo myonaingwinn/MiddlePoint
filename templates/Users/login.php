@@ -1,7 +1,7 @@
 <style type="text/css">
     a.button {
         background-color: black;
-        border: 1px solid #660000;
+        border: 1px solid #000000;
         border-radius: 5px;
         color: #fff;
         margin-right: 10px;
