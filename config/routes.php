@@ -59,7 +59,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
      */
     $builder->connect('/pages/*', 'Pages::display');
 
-    $builder->connect('/login', ['controller' => 'Users', 'action' => 'login']);
+    $builder->connect('/view/*', ['controller' => 'Users', 'action' => 'view']);
 
     $builder->connect('/login', ['controller' => 'Users', 'action' => 'login']);
 

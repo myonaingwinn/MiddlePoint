@@ -5,6 +5,11 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
+<style>
+    .pdf {
+        margin-left: 67%;
+    }
+</style>
 <div class="row">
     <aside class="column">
         <?php if ($user_g->role == 1) : ?>
@@ -14,6 +19,12 @@
                 <?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'side-nav-item']) ?>
                 <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
                 <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            </div>
+        <?php endif; ?>
+        <?php if ($user_g->id == $user->id) : ?>
+            <div class="side-nav">
+                <h4 class="heading"><?= __('Actions') ?></h4>
+                <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => 'side-nav-item']) ?>
             </div>
         <?php endif; ?>
     </aside>
@@ -61,7 +72,7 @@
             </table>
             <br />
             <?php if (($user_g->id == $user->id) || $user_g->role == 1) : ?>
-                <?= $this->Html->link(__('Download Your Data as PDF'), ['action' => 'pdf', $user->id], ['class' => 'float-right, button']) ?>
+                <?= $this->Html->link(__('Download Your Data as PDF'), ['action' => 'pdf', $user->id], ['class' => 'button pdf']) ?>
             <?php endif; ?>
         </div>
     </div>
