@@ -36,6 +36,47 @@ $cakeDescription = 'User Management System';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <style>
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: #606C76;
+            padding: 3px;
+            margin: 6px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        /* .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        } */
+    </style>
 </head>
 
 <body>
@@ -54,7 +95,13 @@ $cakeDescription = 'User Management System';
                 <a rel="noopener" href="<?= $this->Url->build('/index') ?>">Home</a>
             <?php endif; ?>
             <?php if ($user_id != null) : ?>
-                <a rel="noopener" href="<?= $this->Url->build('/logout') ?>">Logout</a>
+                <div class="dropdown">
+                    <a class="dropbtn">Profile</a>
+                    <div class="dropdown-content">
+                        <a href="<?= $this->Url->build('/view' . '/' . $user_id) ?>">View Profile</a>
+                        <a rel="noopener" href="<?= $this->Url->build('/logout') ?>" style="color:#D33C43">Logout</a>
+                    </div>
+                </div>
             <?php endif; ?>
         </div>
     </nav>
