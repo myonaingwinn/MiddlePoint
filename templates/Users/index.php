@@ -21,7 +21,7 @@
     }
 
     input[type='text'] {
-        border: 0.1rem solid #D33C43;
+        border: 0.1rem solid #606C8C;
     }
 </style>
 
