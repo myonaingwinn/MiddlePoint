@@ -14,15 +14,6 @@
     .button {
         margin-left: 15px;
     }
-
-    input[type='submit'] {
-        background-color: #404041;
-        border: #404041;
-    }
-
-    input[type='text'] {
-        border: 0.1rem solid #606C8C;
-    }
 </style>
 
 <div class="users index content">
